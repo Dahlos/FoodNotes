@@ -3,11 +3,10 @@ package com.dahlos.foodnotes.data.datasource.repository.impl
 import com.dahlos.foodnotes.data.datasource.local.dao.FoodCategoryDao
 import com.dahlos.foodnotes.data.datasource.local.entities.FoodCategoryEntity
 import com.dahlos.foodnotes.data.datasource.repository.FoodCategoriesRepository
+import com.dahlos.foodnotes.presentation.ui.models.FoodCategoryModel
 import com.dahlos.foodnotes.utils.ResultViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 internal class FoodCategoriesRepositoryImpl(
@@ -27,11 +26,22 @@ internal class FoodCategoriesRepositoryImpl(
         )
     }
 
-    override suspend fun initFoodCategories() :ResultViewState {
+    override suspend fun initFoodCategories(): ResultViewState<String> {
         return withContext(ioDispatcher) {
             try {
                 foodCategories.forEach { foodCategoryDao.insert(it) }
                 ResultViewState.Success("Food categories initialized")
+            } catch (e: Exception) {
+                ResultViewState.Error(e)
+            }
+        }
+    }
+
+    override suspend fun getAllFoodCategories(): ResultViewState<List<FoodCategoryModel>> {
+        return withContext(ioDispatcher) {
+            try {
+                val response = foodCategoryDao.getAll()
+                ResultViewState.Success(response.map { FoodCategoryModel(it.id, it.category) })
             } catch (e: Exception) {
                 ResultViewState.Error(e)
             }
