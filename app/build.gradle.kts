@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -71,5 +72,8 @@ dependencies {
     val roomVersion = "2.5.2"
     implementation("androidx.room:room-runtime:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
-    implementation("io.insert-koin:koin-android:3.4.3")
+
+    val koinVersion = "3.4.3"
+    implementation("io.insert-koin:koin-android:$koinVersion")
+    implementation ("io.insert-koin:koin-androidx-compose:$koinVersion")
 }

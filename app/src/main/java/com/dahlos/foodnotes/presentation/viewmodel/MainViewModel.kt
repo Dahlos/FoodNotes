@@ -2,23 +2,23 @@ package com.dahlos.foodnotes.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dahlos.foodnotes.data.local.dao.FoodCategoryDao
-import com.dahlos.foodnotes.data.local.entities.FoodCategoryEntity
+import com.dahlos.foodnotes.data.datasource.local.dao.FoodCategoryDao
+import com.dahlos.foodnotes.data.datasource.local.entities.FoodCategoryEntity
+import com.dahlos.foodnotes.data.datasource.repository.FoodCategoriesRepository
+import com.dahlos.foodnotes.utils.ResultViewState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-internal class MainViewModel(private val foodCategoryDao: FoodCategoryDao) : ViewModel() {
+internal class MainViewModel(private val foodCategoriesRepository: FoodCategoriesRepository) : ViewModel() {
 
-    fun insertFoodCategory() {
-        with(Dispatchers.IO){
-            foodCategoryDao.insert(FoodCategoryEntity(1, "Cereales"))
-            foodCategoryDao.insert(FoodCategoryEntity(2, "Vegetales libre consumo"))
-            foodCategoryDao.insert(FoodCategoryEntity(3, "Vegetales consumo general"))
-            foodCategoryDao.insert(FoodCategoryEntity(4, "Frutas"))
-            foodCategoryDao.insert(FoodCategoryEntity(5, "Lácteos"))
-            foodCategoryDao.insert(FoodCategoryEntity(6, "Carnes bajas en grasas"))
-            foodCategoryDao.insert(FoodCategoryEntity(7, "Alimentos ricos en lípidos"))
-            foodCategoryDao.insert(FoodCategoryEntity(8, "Aceites y grasas"))
+    private val _initFoodCategoriesState = MutableStateFlow<ResultViewState>(ResultViewState.Initial)
+    val initFoodCategoriesState = _initFoodCategoriesState.asStateFlow()
+
+    fun initFoodCategories() {
+        viewModelScope.launch() {
+            _initFoodCategoriesState.emit(foodCategoriesRepository.initFoodCategories())
         }
     }
 }

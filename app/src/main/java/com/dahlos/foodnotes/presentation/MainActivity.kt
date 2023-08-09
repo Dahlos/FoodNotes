@@ -32,8 +32,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-            initRoom()
-
             FoodNotesTheme {
                 Scaffold(
                     bottomBar = { NavigationBarBottom(items, navController) },
@@ -43,31 +41,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
-    }
-
-    @Composable
-    private fun initRoom() {
-        val viewModel = getViewModel<MainViewModel>()
-        viewModel.insertFoodCategory()
-//        LaunchedEffect(Unit) {
-//            val database  = get<AppDatabase>()
-//            lifecycleScope.launch {
-//                database.run {
-//                    foodCategoryDao().insert(FoodCategoryEntity(1, "Cereales"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(2, "Vegetales libre consumo"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(3, "Vegetales consumo general"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(4, "Frutas"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(5, "Lácteos"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(6, "Carnes bajas en grasas"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(7, "Alimentos ricos en lípidos"))
-//                    foodCategoryDao().insert(FoodCategoryEntity(8, "Aceites y grasas"))
-//                }
-//            }
-//        }
-//        val database = AppDatabase.getInstance(this)
-//        val database : AppDatabase by inject()
-
 
     }
 }

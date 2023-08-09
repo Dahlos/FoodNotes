@@ -1,9 +1,9 @@
-package com.dahlos.foodnotes.data.local
+package com.dahlos.foodnotes.data.datasource.local
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.dahlos.foodnotes.data.local.dao.FoodCategoryDao
-import com.dahlos.foodnotes.data.local.entities.FoodCategoryEntity
+import com.dahlos.foodnotes.data.datasource.local.dao.FoodCategoryDao
+import com.dahlos.foodnotes.data.datasource.local.entities.FoodCategoryEntity
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

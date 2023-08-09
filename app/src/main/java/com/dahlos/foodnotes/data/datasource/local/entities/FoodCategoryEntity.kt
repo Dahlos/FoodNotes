@@ -1,4 +1,4 @@
-package com.dahlos.foodnotes.data.local.entities
+package com.dahlos.foodnotes.data.datasource.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
